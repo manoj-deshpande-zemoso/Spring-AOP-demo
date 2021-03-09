@@ -21,11 +21,11 @@ public class AopDemoApplication {
 	}
 
 	@Bean
-	public JdbcTemplate postgresJdbcTemplate(@Autowired DataSource dsPostgres) {
+	public JdbcTemplate postgresJdbcTemplate(@Qualifier("empDataSource") DataSource dsPostgres) {
 		return new JdbcTemplate(dsPostgres);
 	}
 
-	@Bean
+	@Bean(name = "empDataSource")
 	DataSource empDataSource(
 			@Value("${emp-database.url}") String jdbcUrl,
 			@Value("${emp-database.username}") String jdbcUsername,

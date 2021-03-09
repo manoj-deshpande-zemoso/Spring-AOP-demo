@@ -1,4 +1,4 @@
-insert into emp values
+insert into emp (name, email, phone) values
 (
     'Alex Wolf',
     'alexwolf@gmail.com',

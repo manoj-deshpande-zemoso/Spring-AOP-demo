@@ -25,8 +25,14 @@ public class EmpRepository {
     }
 
     public EmpDTO getEmployeeById(UUID id) {
-        String sql = "select * from emp where id = :id";
-        return jdbcTemplate.queryForObject(sql, new Object[] {id}, new EmpDTOMapper());
+        String sql = "select * from emp where id = ?";
+        EmpDTO emp = null;
+        try {
+            emp = jdbcTemplate.queryForObject(sql, new Object[]{id}, new EmpDTOMapper());
+        } catch (Exception e) {
+            throw new EmployeeNotFoundException("Could not find employee with id : " + id);
+        }
+        return emp;
     }
 
     public EmpDTO addEmployee(EmpDTO emp) {
